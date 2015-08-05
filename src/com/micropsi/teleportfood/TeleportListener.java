@@ -18,8 +18,12 @@ public class TeleportListener implements Listener {
 		if(!event.isCancelled()){
 			if(event.getMessage().contains("tppos")){
 				Player player = event.getPlayer();
-//				log.log(Level.INFO, "decreasing food after teleport");
-				player.setFoodLevel(player.getFoodLevel() - 1);
+//				log.log(Level.INFO, "Current player exhaustion: {0}", player.getExhaustion());
+				// max exhaustion level is 4. See minecraft hunger mechanics
+				if(player.getExhaustion() + 1 > 4){
+					player.setFoodLevel(player.getFoodLevel() - 1);
+				}
+				player.setExhaustion((float) (player.getExhaustion() + 1));
 			}
 		}
 	}
