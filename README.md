@@ -1,4 +1,4 @@
 spigot-teleport-plugin
 ===========
 
-This plugin decreases the foodlevel of a player by one every time the tppos command is used
+This plugin increases the player's exhaustion by one every time the tppos command is used.
