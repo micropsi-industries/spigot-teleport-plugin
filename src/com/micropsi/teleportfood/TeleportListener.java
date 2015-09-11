@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 
 public class TeleportListener implements Listener {
 
@@ -22,9 +23,20 @@ public class TeleportListener implements Listener {
 				// max exhaustion level is 4. See minecraft hunger mechanics
 				if(player.getExhaustion() + 1 > 4){
 					player.setFoodLevel(player.getFoodLevel() - 1);
+					player.setExhaustion(0);
+				} else {
+					player.setExhaustion((float) (player.getExhaustion() + 1));
 				}
-				player.setExhaustion((float) (player.getExhaustion() + 1));
 			}
+		}
+	}
+
+	@EventHandler
+	public void onPlayerInteract(PlayerInteractEvent event){
+		if(event.getItem().getType().isEdible()){
+			// player is eating, reset exhaustion level
+			Player player = event.getPlayer();
+			player.setExhaustion(0);
 		}
 	}
 
